@@ -67,8 +67,8 @@ public class Encoder {
     //------------------------------------------------------------------//
 
 
-    BinaryFileReader myBinaryFileReader = new BinaryFileReader("encoded.bin");
-    myBinaryFileReader.read();
+    // BinaryFileReader myBinaryFileReader = new BinaryFileReader("encoded.bin");
+    // myBinaryFileReader.read();
 
     /*
     Decoder myDecoder = new Decoder("code_table.txt", "encoded.bin");

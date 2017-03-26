@@ -150,51 +150,51 @@ public class PairingHeap {
 
     //------------------------------------------------------------//
 
-    public HeapNode buildHuffmanTree() {
-      HeapNode tleft, tright, troot;
-      while (size() > 1) {
-        tleft = deleteMin();
-        tright = deleteMin();
-        troot = new HeapNode(-1, tleft.frequency() + tright.frequency());
-        troot.treeLeft = tleft;
-        troot.treeRight = tright;
-        insert(troot);
-      }
-      updateHuffCodes();
-      return root;
-    }
-
-    public void updateHuffCodes() {
-      String s = "";
-      printInOrder(root, s);
-    }
-
-    public void printInOrder(HeapNode t, String s) {
-      if (t == null)
-        return;
-      printInOrder(t.treeLeft, s + "0");
-      if (t.value != -1)
-        t.huffCode = s;
-      printInOrder(t.treeRight, s + "1");
-    }
+    // public HeapNode buildHuffmanTree() {
+    //   HeapNode tleft, tright, troot;
+    //   while (size() > 1) {
+    //     tleft = deleteMin();
+    //     tright = deleteMin();
+    //     troot = new HeapNode(-1, tleft.frequency() + tright.frequency());
+    //     troot.treeLeft = tleft;
+    //     troot.treeRight = tright;
+    //     insert(troot);
+    //   }
+    //   updateHuffCodes();
+    //   return root;
+    // }
+    //
+    // public void updateHuffCodes() {
+    //   String s = "";
+    //   printInOrder(root, s);
+    // }
+    //
+    // public void printInOrder(HeapNode t, String s) {
+    //   if (t == null)
+    //     return;
+    //   printInOrder(t.treeLeft, s + "0");
+    //   if (t.value != -1)
+    //     t.huffCode = s;
+    //   printInOrder(t.treeRight, s + "1");
+    // }
 
     public HuffmanNode getHuffmanTreeAtRoot () {
       return root.pHuff;
     }
     //------------------------------------------------------------//
 
-    public void copyHuffCodes(String[] table) {
-      copy(root, table);
-    }
-
-    public void copy(HeapNode t, String[] table) {
-      if (t == null)
-        return;
-      copy(t.treeLeft, table);
-      if (t.value != -1) {
-        table[t.value] = t.huffCode;
-      }
-      copy(t.treeRight, table);
-    }
+    // public void copyHuffCodes(String[] table) {
+    //   copy(root, table);
+    // }
+    //
+    // public void copy(HeapNode t, String[] table) {
+    //   if (t == null)
+    //     return;
+    //   copy(t.treeLeft, table);
+    //   if (t.value != -1) {
+    //     table[t.value] = t.huffCode;
+    //   }
+    //   copy(t.treeRight, table);
+    // }
 
 }
