@@ -21,7 +21,7 @@ public class PerformanceMonitor {
     //Read the input file and update frequencies
     System.out.println("\nBuilding the frequency table...");
     float start = System.nanoTime();
-    Scanner scan = new Scanner(new FileReader("sample_input_large.txt"));
+    Scanner scan = new Scanner(new FileReader("../input/sample_input_large.txt"));
     while (scan.hasNext())
     {
       if ((frequencyTable[scan.nextInt()]++) == 0)

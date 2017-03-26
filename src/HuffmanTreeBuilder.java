@@ -52,10 +52,13 @@ public class HuffmanTreeBuilder {
 
     //------------------------------------------------------------------//
 
-    HeapNode huffRoot = pHeap.buildHuffmanTree();
 
-    String[] huffCodes = new String[1000000];
-    pHeap.copyHuffCodes(huffCodes);
+    // TreeBuilder myTreeBuilder = new TreeBuilder(pHeap);
+    // HuffmanTree huffTree = new HuffmanTree(myTreeBuilder.buildHuffmanTree());
+    // huffTree.updateHuffCodes();
+    // HuffmanNode huffRoot = huffTree.getRoot();
+    // String[] huffCodes = new String[1000000];
+    // huffTree.copyHuffCodes(huffCodes);
 
     CodeTableCreator myCodeTableCreator = new CodeTableCreator("code_table.txt", huffRoot);
     myCodeTableCreator.createFile();
@@ -63,8 +66,15 @@ public class HuffmanTreeBuilder {
     Encoder myEncoder = new Encoder(filename,"encoded.bin",huffCodes);
     myEncoder.encode();
 
+    //------------------------------------------------------------------//
+
+
     BinaryFileReader myBinaryFileReader = new BinaryFileReader("encoded.bin");
     myBinaryFileReader.read();
 
+    /*
+    Decoder myDecoder = new Decoder("code_table.txt", "encoded.bin");
+    myDecoder.buildHuffmanTree();
+    */
   }
 }

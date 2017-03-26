@@ -17,22 +17,21 @@ public class BinaryFileReader {
   }
 
   public void read() {
-  try {
-    inputStream = new FileInputStream(input);
-    byte[] b;
+    try {
+      inputStream = new FileInputStream(input);
+      byte[] b;
 
-    while (inputStream.available() > 0) {
-      b = new byte[1];
-      inputStream.read(b);
-      binaryString.append(toBinaryString(b));
+      while (inputStream.available() > 0) {
+        b = new byte[1];
+        inputStream.read(b);
+        binaryString.append(toBinaryString(b));
+      }
+      System.out.println(binaryString);
     }
-    System.out.println(binaryString);
-    
-  }
 
-  catch(IOException e) {
-    e.printStackTrace();
-  }
+    catch(IOException e) {
+      e.printStackTrace();
+    }
   }
 
   String toBinaryString(byte[] bytes)

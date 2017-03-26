@@ -8,6 +8,7 @@ public class HeapNode {
   HeapNode treeLeft;
   HeapNode treeRight;
   String huffCode;
+  HuffmanNode pHuff;
 
   public HeapNode(int value, int frequency) {
     this.value = value;
@@ -18,6 +19,19 @@ public class HeapNode {
     treeLeft = null;
     treeRight = null;
     huffCode = "";
+    pHuff = null;
+  }
+
+  public HeapNode(int value, int frequency, HuffmanNode pHuff) {
+    this.value = value;
+    this.frequency = frequency;
+    child = null;
+    left = null;
+    right = null;
+    treeLeft = null;
+    treeRight = null;
+    huffCode = "";
+    this.pHuff = pHuff;
   }
 
   public int value() {

@@ -178,6 +178,9 @@ public class PairingHeap {
       printInOrder(t.treeRight, s + "1");
     }
 
+    public HuffmanNode getHuffmanTreeAtRoot () {
+      return root.pHuff;
+    }
     //------------------------------------------------------------//
 
     public void copyHuffCodes(String[] table) {

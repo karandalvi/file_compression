@@ -8,9 +8,9 @@ public class CodeTableCreator {
   BufferedWriter output;
   File file;
   String filename;
-  HeapNode root;
+  HuffmanNode root;
 
-  public CodeTableCreator(String filename, HeapNode root) {
+  public CodeTableCreator(String filename, HuffmanNode root) {
     this.filename = "../output/" + filename;
     this.root = root;
   }
@@ -28,10 +28,10 @@ public class CodeTableCreator {
     }
   }
 
-  public void printInOrder(HeapNode t) {
+  public void printInOrder(HuffmanNode t) {
     if (t == null)
       return;
-    printInOrder(t.treeLeft);
+    printInOrder(t.left);
     if (t.value != -1) {
       try {
         output.write(t.value + " " + t.huffCode);
@@ -41,7 +41,7 @@ public class CodeTableCreator {
         e.printStackTrace();
       }
     }
-    printInOrder(t.treeRight);
+    printInOrder(t.right);
   }
 
 }
