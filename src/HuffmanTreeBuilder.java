@@ -63,5 +63,8 @@ public class HuffmanTreeBuilder {
     Encoder myEncoder = new Encoder(filename,"encoded.bin",huffCodes);
     myEncoder.encode();
 
+    BinaryFileReader myBinaryFileReader = new BinaryFileReader("encoded.bin");
+    myBinaryFileReader.read();
+
   }
 }
