@@ -1,13 +1,10 @@
 import java.io.IOException;
-
 import java.util.Scanner;
 import java.io.FileReader;
-
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
-//import java.io.BufferedWriter;
+import java.nio.ByteBuffer;
 
 public class Encoder {
 
@@ -17,19 +14,15 @@ public class Encoder {
 
   Scanner scan;
   FileReader filereader;
-
   File file;
   OutputStream opStream;
-  //OutputStreamWriter opWriter;
-  //BufferedWriter output;
-
-  String s;
+  StringBuilder binaryString;
 
   public Encoder (String inputfilename, String outputfilename, String[] huffCodes) {
     this.inputfilename = inputfilename;
-    this.outputfilename = outputfilename;
+    this.outputfilename = "../output/" + outputfilename;
     this.huffCodes = huffCodes;
-    s = "";
+    binaryString = new StringBuilder("");
   }
 
   public void encode() {
@@ -38,27 +31,34 @@ public class Encoder {
       filereader = new FileReader(inputfilename);
       scan = new Scanner(filereader);
 
-      //file = new File(outputfilename);
       opStream = new FileOutputStream(outputfilename);
-      //opWriter = new OutputStreamWriter(opStream, "UTF-16BE");
-      //output = new BufferedWriter(new FileWriter(file));
       while (scan.hasNext())
       {
-        opStream.write(huffCodes[scan.nextInt()].getBytes());
+        binaryString.append(String.valueOf(huffCodes[scan.nextInt()]));
       }
-      //System.out.println(s);
-      //byte[] d = s.getBytes();
-      //System.out.println(d);
+      scan.close();
 
+      opStream.write(formBinary(binaryString.toString()));
       opStream.flush();
       opStream.close();
-      //output.close();
     }
+
     catch(IOException e) {
       e.printStackTrace();
     }
+  }
 
-    scan.close();
+  protected byte[] formBinary(String s)
+  {
+      int sLen = s.length();
+      byte[] toReturn = new byte[(sLen + Byte.SIZE - 1) / Byte.SIZE];
+      char c;
+      for( int i = 0; i < sLen; i++ )
+          if( (c = s.charAt(i)) == '1' )
+              toReturn[i / Byte.SIZE] = (byte) (toReturn[i / Byte.SIZE] | (0x80 >>> (i % Byte.SIZE)));
+          else if ( c != '0' )
+              throw new IllegalArgumentException();
+      return toReturn;
   }
 
 }

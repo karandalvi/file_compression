@@ -11,7 +11,7 @@ public class CodeTableCreator {
   HeapNode root;
 
   public CodeTableCreator(String filename, HeapNode root) {
-    this.filename = filename;
+    this.filename = "../output/" + filename;
     this.root = root;
   }
 

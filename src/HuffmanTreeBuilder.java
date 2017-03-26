@@ -10,8 +10,8 @@ public class HuffmanTreeBuilder {
     System.out.println("Input file name");
     String filename = myScan.next();
     myScan.close();
-    filename = "sample_input_" + filename + ".txt";
-    
+    filename = "../input/sample_input_" + filename + ".txt";
+
     int count = 0;
     int heapSize;
     int[] frequencyTable = new int[1000000];
@@ -32,7 +32,7 @@ public class HuffmanTreeBuilder {
     scan.close();
     float stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Built the frequency table successfully in " + Math.round(stop) + " time");
+    System.out.println("Built the frequency table successfully in " + Math.round(stop) + " time units");
 
     //------------------------------------------------------------------//
 
