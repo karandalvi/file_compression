@@ -1,14 +1,18 @@
 public class TreeBuilder {
 
   PairingHeap pHeap;
-  HuffmanNode hTree;
-  int flag = 0;
+  HuffmanNode hRoot;
+  HuffmanTree hTree;
+  String[] table;
 
   public TreeBuilder(PairingHeap heap) {
     pHeap = heap;
+    table = new String[1000000];
+    buildHuffmanTree();
+    buildCodeTable();
   }
 
-  public HuffmanNode buildHuffmanTree() {
+  public void buildHuffmanTree() {
 
     HuffmanNode treeleft, treeright, treeparent;
     HeapNode heapleft, heapright, heapparent;
@@ -28,25 +32,26 @@ public class TreeBuilder {
         treeright = heapright.pHuff;
 
        treeparent = new HuffmanNode(-1, treeleft, treeright);
-       heapparent = new HeapNode(-1, heapleft.value() + heapright.value(), treeparent);
+       heapparent = new HeapNode(-1, heapleft.frequency() + heapright.frequency(), treeparent);
        pHeap.insert(heapparent);
     }
 
-    hTree = pHeap.getHuffmanTreeAtRoot();
-    flag = 1;
+    hRoot = pHeap.getHuffmanTreeAtRoot();
+    hTree = new HuffmanTree(hRoot);
+    hTree.updateHuffCodes();
+  }
+
+  public void buildCodeTable() {
+    for (int i=0; i<1000000; i++)
+      table[i] = "";
+    hTree.copyHuffCodes(table);
+  }
+
+  public HuffmanTree getHuffmanTree() {
     return hTree;
   }
 
-  public String[] buildCodeTable() {
-    String[] table = new String[1000000];
-    if (flag == 1) {
-      hTree.updateHuffCodes("");
-    }
-    else {
-      buildHuffmanTree();
-      hTree.updateHuffCodes("");
-    }
-    hTree.copyToTable(table);
+  public String[] getHuffCodeTable() {
     return table;
   }
 

@@ -18,14 +18,14 @@ public class HuffmanNode {
     huffCode = "";
   }
 
-  public void updateHuffCodes(String s) {
-    if (left != null)
-      left.updateHuffCodes(s + "0");
-    if (value != -1)
-      huffCode = s;
-    if (right != null)
-      right.updateHuffCodes(s + "1");
-  }
+  // public void updateHuffCodes(String s) {
+  //   if (left != null)
+  //     left.updateHuffCodes(s + "0");
+  //   if (value != -1)
+  //     huffCode = s;
+  //   if (right != null)
+  //     right.updateHuffCodes(s + "1");
+  // }
 
   public void print() {
     if (left != null)
@@ -35,13 +35,13 @@ public class HuffmanNode {
       right.print();
   }
 
-  public void copyToTable(String[] table) {
-    if (left != null)
-      left.copyToTable(table);
-    if (value >= 0)
-      table[value] = huffCode;
-    if (right != null)
-      right.copyToTable(table);
-  }
+  // public void copyToTable(String[] table) {
+  //   if (left != null)
+  //     left.copyToTable(table);
+  //   if (value >= 0)
+  //     table[value] = huffCode;
+  //   if (right != null)
+  //     right.copyToTable(table);
+  // }
 
 }

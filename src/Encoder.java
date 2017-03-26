@@ -5,11 +5,13 @@ public class Encoder {
 
   public static void main (String[] args) throws Exception {
 
+    String filename = args[0];
+
     //Initialize the frequency table that will be used to build the heap
-    Scanner myScan = new Scanner(System.in);
-    System.out.println("Input file name");
-    String filename = myScan.next();
-    myScan.close();
+    // Scanner myScan = new Scanner(System.in);
+    // System.out.println("Input file name");
+    // String filename = myScan.next();
+    // myScan.close();
     filename = "../input/sample_input_" + filename + ".txt";
 
     int count = 0;
@@ -53,14 +55,10 @@ public class Encoder {
     //------------------------------------------------------------------//
 
     TreeBuilder myTreeBuilder = new TreeBuilder(pHeap);
-    HuffmanTree huffTree = new HuffmanTree(myTreeBuilder.buildHuffmanTree());
-    huffTree.updateHuffCodes();
-    HuffmanNode huffRoot = huffTree.getRoot();
+    HuffmanTree huffTree = myTreeBuilder.getHuffmanTree();
+    String[] huffCodes = myTreeBuilder.getHuffCodeTable();
 
-    String[] huffCodes = new String[1000000];
-    huffTree.copyHuffCodes(huffCodes);
-
-    CodeTableWriter myCodeTableWriter = new CodeTableWriter("code_table.txt", huffRoot);
+    CodeTableWriter myCodeTableWriter = new CodeTableWriter("code_table.txt", huffTree.getRoot());
     myCodeTableWriter.createFile();
 
     BinaryFileWriter myBinaryFileWriter = new BinaryFileWriter(filename,"encoded.bin",huffCodes);

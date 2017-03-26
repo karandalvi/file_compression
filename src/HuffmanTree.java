@@ -10,26 +10,28 @@ public class HuffmanTree {
     this.root = root;
   }
 
-  public void updateHuffCodes() {
-    printInOrder(root, "");
-  }
+  //-------------------------------------------------------------//
 
   public HuffmanNode getRoot() {
     return root;
   }
-  
-  public void printInOrder(HuffmanNode t, String s) {
-    if (t == null)
-      return;
-    printInOrder(t.left, s + "0");
-    if (t.value != -1)
-      t.huffCode = s;
-    printInOrder(t.right, s + "1");
+
+  public void updateHuffCodes() {
+    updateHuffCode(root, "");
   }
 
+  public void updateHuffCode(HuffmanNode t, String s) {
+    if (t == null)
+      return;
+    updateHuffCode(t.left, s + "0");
+    if (t.value != -1)
+      t.huffCode = s;
+    updateHuffCode(t.right, s + "1");
+  }
+
+  //-------------------------------------------------------------//
+
   public void copyHuffCodes(String[] table) {
-    for (int i=0; i<1000000; i++)
-      table[i] = "-1";
     copy(root, table);
   }
 
