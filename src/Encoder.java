@@ -1,64 +1,80 @@
-import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
-import java.io.File;
-import java.io.OutputStream;
-import java.io.FileOutputStream;
-import java.nio.ByteBuffer;
 
 public class Encoder {
 
-  String[] huffCodes;
-  String inputfilename;
-  String outputfilename;
+  public static void main (String[] args) throws Exception {
 
-  Scanner scan;
-  FileReader filereader;
-  File file;
-  OutputStream opStream;
-  StringBuilder binaryString;
+    //Initialize the frequency table that will be used to build the heap
+    Scanner myScan = new Scanner(System.in);
+    System.out.println("Input file name");
+    String filename = myScan.next();
+    myScan.close();
+    filename = "../input/sample_input_" + filename + ".txt";
 
-  public Encoder (String inputfilename, String outputfilename, String[] huffCodes) {
-    this.inputfilename = inputfilename;
-    this.outputfilename = "../output/" + outputfilename;
-    this.huffCodes = huffCodes;
-    binaryString = new StringBuilder("");
-  }
+    int count = 0;
+    int heapSize;
+    int[] frequencyTable = new int[1000000];
+    for (int i=0; i<1000000; i++)
+      frequencyTable[i] = 0;
 
-  public void encode() {
+    //------------------------------------------------------------------//
 
-    try {
-      filereader = new FileReader(inputfilename);
-      scan = new Scanner(filereader);
-
-      opStream = new FileOutputStream(outputfilename);
-      while (scan.hasNext())
-      {
-        binaryString.append(String.valueOf(huffCodes[scan.nextInt()]));
-      }
-      scan.close();
-
-      opStream.write(formBinary(binaryString.toString()));
-      opStream.flush();
-      opStream.close();
+    //Read the input file and update frequencies
+    System.out.println("\nBuilding the frequency table...");
+    float start = System.nanoTime();
+    Scanner scan = new Scanner(new FileReader(filename));
+    while (scan.hasNext())
+    {
+      if ((frequencyTable[scan.nextInt()]++) == 0)
+        count++;
     }
+    scan.close();
+    float stop = System.nanoTime();
+    stop = (stop - start) / 1000000;
+    System.out.println("Built the frequency table successfully in " + Math.round(stop) + " time units");
 
-    catch(IOException e) {
-      e.printStackTrace();
+    //------------------------------------------------------------------//
+
+    //Build a pairing heap using the frequency table
+    System.out.println("\nBuilding Pairing Heap");
+    start = System.nanoTime();
+    PairingHeap pHeap = new PairingHeap();
+
+    for (int i=0; i<1000000; i++) {
+      if (frequencyTable[i] > 0)
+        pHeap.insert(i, frequencyTable[i]);
     }
-  }
+    frequencyTable = null;
+    stop = System.nanoTime();
+    stop = (stop - start) / 1000000;
+    System.out.println("Total Build Time: " + Math.round(stop));
 
-  protected byte[] formBinary(String s)
-  {
-      int sLen = s.length();
-      byte[] toReturn = new byte[(sLen + Byte.SIZE - 1) / Byte.SIZE];
-      char c;
-      for( int i = 0; i < sLen; i++ )
-          if( (c = s.charAt(i)) == '1' )
-              toReturn[i / Byte.SIZE] = (byte) (toReturn[i / Byte.SIZE] | (0x80 >>> (i % Byte.SIZE)));
-          else if ( c != '0' )
-              throw new IllegalArgumentException();
-      return toReturn;
-  }
+    //------------------------------------------------------------------//
 
+    TreeBuilder myTreeBuilder = new TreeBuilder(pHeap);
+    HuffmanTree huffTree = new HuffmanTree(myTreeBuilder.buildHuffmanTree());
+    huffTree.updateHuffCodes();
+    HuffmanNode huffRoot = huffTree.getRoot();
+
+    String[] huffCodes = new String[1000000];
+    huffTree.copyHuffCodes(huffCodes);
+
+    CodeTableWriter myCodeTableWriter = new CodeTableWriter("code_table.txt", huffRoot);
+    myCodeTableWriter.createFile();
+
+    BinaryFileWriter myBinaryFileWriter = new BinaryFileWriter(filename,"encoded.bin",huffCodes);
+    myBinaryFileWriter.encode();
+
+    //------------------------------------------------------------------//
+
+
+    BinaryFileReader myBinaryFileReader = new BinaryFileReader("encoded.bin");
+    myBinaryFileReader.read();
+
+    /*
+    Decoder myDecoder = new Decoder("code_table.txt", "encoded.bin");
+    myDecoder.buildHuffmanTree();
+    */
+  }
 }

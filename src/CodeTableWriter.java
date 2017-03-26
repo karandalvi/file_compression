@@ -3,14 +3,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CodeTableCreator {
+public class CodeTableWriter {
 
   BufferedWriter output;
   File file;
   String filename;
   HuffmanNode root;
 
-  public CodeTableCreator(String filename, HuffmanNode root) {
+  public CodeTableWriter(String filename, HuffmanNode root) {
     this.filename = "../output/" + filename;
     this.root = root;
   }
