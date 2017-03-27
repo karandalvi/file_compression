@@ -240,6 +240,8 @@ public class PerformanceMonitor {
   catch(ArrayIndexOutOfBoundsException e) {
     System.out.println("Please provide input filename");
   }
-
+  catch (Exception e) {
+    e.printStackTrace();
+  }
   }
 }

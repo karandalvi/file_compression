@@ -7,11 +7,14 @@ the huffman code table which should be used for reconstructing the original file
 */
 import java.util.Scanner;
 import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class encoder {
 
   public static void main (String[] args) throws Exception {
 
+    try {
     String filename = args[0];
     int count = 0;
     int heapSize;
@@ -65,6 +68,17 @@ public class encoder {
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
     System.out.println("Total Encode Time: " + Math.round(stop) + " milliseconds");
+  }
+
+  catch(FileNotFoundException e) {
+    System.out.println("File not found. Please provide correct filename as command line argument.");
+  }
+  catch(ArrayIndexOutOfBoundsException e) {
+    System.out.println("Please provide the filename which you want to encode");
+  }
+  catch (Exception e) {
+    e.printStackTrace();
+  }
 
   }
 }
