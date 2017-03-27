@@ -16,7 +16,7 @@ public class CodeTableWriter {
   HuffmanNode root;
 
   public CodeTableWriter(String filename, HuffmanNode root) {
-    this.filename = "../output/" + filename;
+    this.filename = filename;
     this.root = root;
   }
 

@@ -25,7 +25,7 @@ public class BinaryFileWriter {
 
   public BinaryFileWriter (String inputfilename, String outputfilename, String[] huffCodes) {
     this.inputfilename = inputfilename;
-    this.outputfilename = "../output/" + outputfilename;
+    this.outputfilename = outputfilename;
     this.huffCodes = huffCodes;
     binaryString = new StringBuilder("");
   }

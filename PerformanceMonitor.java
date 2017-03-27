@@ -9,14 +9,15 @@ of heap & tree is run in a loop ten times so as to get reliable analysis times.
 
 import java.util.Scanner;
 import java.io.FileReader;
+import java.lang.Exception;
+import java.io.FileNotFoundException;
+import java.lang.ArrayIndexOutOfBoundsException;
 public class PerformanceMonitor {
 
   public static void main (String[] args) throws Exception {
 
+    try {
     //------------------------------------------------------------------//
-
-    System.out.println("Performance Monitor (All times in milliseconds)");
-    System.out.println("Analysis: Time taken to build heap and subsequently the Huffman Tree ten times");
 
     //Initialize the frequency table that will be used to build the heap
     int count = 0;
@@ -28,9 +29,11 @@ public class PerformanceMonitor {
     //------------------------------------------------------------------//
 
     //Read the input file and update frequencies
+    Scanner scan = new Scanner(new FileReader(args[0]));
+    System.out.println("Performance Monitor (All times in milliseconds)");
+    System.out.println("Analysis: Time taken to build heap and subsequently the Huffman Tree ten times");
     System.out.println("\nBuilding Frequency Table...");
     float start = System.nanoTime();
-    Scanner scan = new Scanner(new FileReader("../input/sample_input_" + args[0] + ".txt"));
     while (scan.hasNext())
     {
       if ((frequencyTable[scan.nextInt()]++) == 0)
@@ -230,5 +233,13 @@ public class PerformanceMonitor {
     System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
+  }
+  catch(FileNotFoundException e) {
+    System.out.println("File not found. Please provide correct filename as command line argument.");
+  }
+  catch(ArrayIndexOutOfBoundsException e) {
+    System.out.println("Please provide input filename");
+  }
+
   }
 }

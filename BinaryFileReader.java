@@ -15,7 +15,7 @@ public class BinaryFileReader {
   InputStream inputStream;
 
   public BinaryFileReader(String filename) {
-    this.inputfilename = "../output/" + filename;
+    this.inputfilename = filename;
     input = new File(inputfilename);
   }
 

@@ -9,7 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Decoder {
+public class decoder {
 
   public static void main(String[] args) {
 
@@ -18,9 +18,9 @@ public class Decoder {
     HuffmanNode hRoot = new HuffmanNode(-1);
     HuffmanTree hTree = new HuffmanTree(hRoot);
 
-    File outputfile = new File("../output/decoded.txt");
-    File code_file = new File("../output/code_table.txt");
-    String binary_filename = "../output/encoded.bin";
+    File outputfile = new File("decoded.txt");
+    File code_file = new File("code_table.txt");
+    String binary_filename = "encoded.bin";
 
     try {
       long start = System.nanoTime();
@@ -38,14 +38,14 @@ public class Decoder {
 
       StringBuilder s = hTree.build(binaryString.toString());
 
-      BufferedWriter bwr = new BufferedWriter(new FileWriter(new File("../output/decoded.txt")));
+      BufferedWriter bwr = new BufferedWriter(new FileWriter(outputfile));
 
       bwr.write(s.toString());
       bwr.flush();
       bwr.close();
       long stop = System.nanoTime();
-      stop = (stop - start) / 1000000000;
-      System.out.println("Total Decode Time: " + Math.round(stop) + " secs");
+      stop = (stop - start) / 1000000;
+      System.out.println("Total Decode Time: " + Math.round(stop) + " milliseconds");
     }
 
     catch (Exception e) {

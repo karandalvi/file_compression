@@ -8,13 +8,11 @@ the huffman code table which should be used for reconstructing the original file
 import java.util.Scanner;
 import java.io.FileReader;
 
-public class Encoder {
+public class encoder {
 
   public static void main (String[] args) throws Exception {
 
     String filename = args[0];
-    filename = "../input/sample_input_" + filename + ".txt";
-
     int count = 0;
     int heapSize;
     int[] frequencyTable = new int[1000000];
@@ -34,7 +32,7 @@ public class Encoder {
     scan.close();
     float stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Frequency Table Build Time: " + Math.round(stop) + " millisecs");
+    System.out.println("Frequency Table Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
@@ -49,7 +47,7 @@ public class Encoder {
     frequencyTable = null;
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Pairing Heap Build Time: " + Math.round(stop) + " millisecs");
+    System.out.println("Pairing Heap Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
@@ -66,7 +64,7 @@ public class Encoder {
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Encode Time: " + Math.round(stop) + " millisecs");
+    System.out.println("Total Encode Time: " + Math.round(stop) + " milliseconds");
 
   }
 }
