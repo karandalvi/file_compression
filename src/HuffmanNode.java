@@ -3,12 +3,23 @@ public class HuffmanNode {
   int value;
   HuffmanNode left, right;
   String huffCode;
+  boolean isLeaf;
+
 
   public HuffmanNode(int value) {
     this.value = value;
     left = null;
     right = null;
     huffCode = "";
+    isLeaf = false;
+  }
+
+  public HuffmanNode(int value, String huff) {
+    this.value = value;
+    left = null;
+    right = null;
+    huffCode = huff;
+    isLeaf = false;
   }
 
   public HuffmanNode(int value, HuffmanNode left, HuffmanNode right) {
@@ -16,6 +27,7 @@ public class HuffmanNode {
     this.left = left;
     this.right = right;
     huffCode = "";
+    isLeaf = false;
   }
 
   // public void updateHuffCodes(String s) {

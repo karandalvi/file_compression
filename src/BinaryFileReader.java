@@ -6,17 +6,16 @@ import java.io.FileInputStream;
 public class BinaryFileReader {
 
   String inputfilename;
-  StringBuilder binaryString;
   File input;
   InputStream inputStream;
 
   public BinaryFileReader(String filename) {
     this.inputfilename = "../output/" + filename;
-    binaryString = new StringBuilder("");
     input = new File(inputfilename);
   }
 
-  public void read() {
+  public StringBuilder read() {
+    StringBuilder binaryString = new StringBuilder("");
     try {
       inputStream = new FileInputStream(input);
       byte[] b;
@@ -26,11 +25,13 @@ public class BinaryFileReader {
         inputStream.read(b);
         binaryString.append(toBinaryString(b));
       }
-      System.out.println(binaryString);
     }
 
     catch(IOException e) {
       e.printStackTrace();
+    }
+    finally {
+        return binaryString;
     }
   }
 

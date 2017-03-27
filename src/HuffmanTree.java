@@ -1,3 +1,4 @@
+
 public class HuffmanTree {
 
   HuffmanNode root;
@@ -43,6 +44,118 @@ public class HuffmanTree {
       table[t.value] = t.huffCode;
     }
     copy(t.right, table);
+  }
+
+  //--------------------------------------------------------------//
+
+  public void add(int value, String huffcode) {
+    insertAt(root, value, huffcode, huffcode);
+  }
+
+  public void insertAt(HuffmanNode root, int value, String huffcode, String path) {
+    if (root == null) {
+        root = new HuffmanNode(-1);
+    }
+
+    if (huffcode.equals("0")) {
+      if (root.left == null) {
+        root.left = new HuffmanNode(value);
+        root.left.huffCode = path;
+        root.isLeaf = true;
+      }
+      else {
+        root.left.value = value;
+        root.left.huffCode = path;
+        root.isLeaf = true;
+      }
+    }
+
+    else if (huffcode.equals("1")) {
+      if (root.right == null) {
+        root.right = new HuffmanNode(value);
+        root.right.huffCode = path;
+        root.isLeaf = true;
+      }
+      else {
+        root.right.value = value;
+        root.right.huffCode = path;
+        root.isLeaf = true;
+      }
+    }
+
+    else {
+      if (huffcode.substring(0,1).equals("0")) {
+        if (root.left == null)
+          root.left = new HuffmanNode(-1);
+        insertAt(root.left, value, huffcode.substring(1), path);
+      }
+      else if (huffcode.substring(0,1).equals("1")) {
+        if (root.right == null)
+          root.right = new HuffmanNode(-1);
+        insertAt(root.right, value, huffcode.substring(1), path);
+      }
+    }
+
+  }
+
+  public void print() {
+    root.print();
+  }
+
+  public boolean isRootNull() {
+    return (root == null);
+  }
+
+  //-------------------------------------------------------------//
+  public StringBuilder buildString(String in_text) {
+    StringBuilder out_text = new StringBuilder("");
+    build(root, in_text, out_text);
+    return out_text;
+  }
+
+  public void build(HuffmanNode root, String in_text, StringBuilder out_text) {
+    if (root.value != -1) {
+      out_text.append(root.value + "\n");
+      if (in_text.length()>0)
+        build(root, in_text, out_text);
+    }
+    else {
+      if (in_text.substring(0,1).equals("0")) {
+        build(root.left, in_text.substring(1), out_text);
+      }
+      else { // (in_text.substring(0,1).equals("1")) {
+        build(root.left, in_text.substring(1), out_text);
+      }
+    }
+  }
+
+  //-------------------------------------------------------------//
+
+  public StringBuilder build (String in_text) {
+    HuffmanNode current = root;
+    StringBuilder out_text = new StringBuilder("");
+    for (int i=-1, j=0; j<in_text.length(); i++, j++) {
+      if (current.value != -1) {
+        out_text.append(current.value + "\n");
+        // out_text.append(System.getProperty("line.separator"));
+        current = root;
+        i--;
+        j--;
+      }
+      else {
+        if (in_text.charAt(j) == '0') {
+          current = current.left;
+        }
+        else {
+          current = current.right;
+        }
+      }
+    }
+    if (current.value != -1) {
+      out_text.append(current.value + "\n");
+      // out_text.append(System.getProperty("line.separator"));
+    }
+    return out_text;
   }
 
 }
