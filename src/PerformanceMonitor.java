@@ -1,3 +1,12 @@
+/*
+Created by: Karan Dalvi
+PerformanceMonitor was used to analyze the performance of different heap structures
+and select the structure that gives optimum performance. This code takes a filename
+as input which will be analyzed. It builds a frequency table and uses this array to
+build different heaps and the Huffman Tree using those heap structures. The construction
+of heap & tree is run in a loop ten times so as to get reliable analysis times.
+*/
+
 import java.util.Scanner;
 import java.io.FileReader;
 public class PerformanceMonitor {
@@ -6,10 +15,10 @@ public class PerformanceMonitor {
 
     //------------------------------------------------------------------//
 
-    System.out.println("Performance Monitor (Time in milliseconds)");
+    System.out.println("Performance Monitor (All times in milliseconds)");
+    System.out.println("Analysis: Time taken to build heap and subsequently the Huffman Tree ten times");
 
     //Initialize the frequency table that will be used to build the heap
-
     int count = 0;
     int heapSize;
     int[] frequencyTable = new int[1000000];
@@ -19,9 +28,9 @@ public class PerformanceMonitor {
     //------------------------------------------------------------------//
 
     //Read the input file and update frequencies
-    System.out.println("\nBuilding the frequency table...");
+    System.out.println("\nBuilding Frequency Table...");
     float start = System.nanoTime();
-    Scanner scan = new Scanner(new FileReader("../input/sample_input_large.txt"));
+    Scanner scan = new Scanner(new FileReader("../input/sample_input_" + args[0] + ".txt"));
     while (scan.hasNext())
     {
       if ((frequencyTable[scan.nextInt()]++) == 0)
@@ -30,136 +39,196 @@ public class PerformanceMonitor {
     scan.close();
     float stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Built the frequency table successfully in " + Math.round(stop) + " time");
+    System.out.println("Frequency Table Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
     //Build a binary heap using the frequency table
-    System.out.println("\nBuilding Binary Heap");
-    start = System.nanoTime();
+    System.out.println("\nAnalyzing Binary Heap...");
     DaryHeap binaryheap = new DaryHeap(count, 2, 0);
-
-    for (int j=0; j<10; j++) {
-    for (int i=0; i<1000000; i++) {
-      if (frequencyTable[i] > 0)
-        binaryheap.insert(i, frequencyTable[i]);
-    }
-    if (j == 9)
-      System.out.println("Heap Size: " + binaryheap.size());
-    else
-      binaryheap.flush();
-    }
-
-    stop = System.nanoTime();
-    stop = (stop - start) / 1000000;
-    System.out.println("Total Build Time:" + Math.round(stop));
-
-    heapSize = binaryheap.size();
     start = System.nanoTime();
 
-    for (int i=0; i<heapSize; i++)
-      binaryheap.deleteMin();
+    for (int j=0; j<10; j++) {
+
+        //Populate the binary heap
+        for (int i=0; i<1000000; i++) {
+          if (frequencyTable[i] > 0)
+            binaryheap.insert(i, frequencyTable[i]);
+        }
+
+        //Build the huffman tree
+        HuffmanNode treeleft, treeright, treeparent;
+        Node heapleft, heapright, heapparent;
+
+        while (binaryheap.size() > 1) {
+           heapleft = binaryheap.deleteMin();
+           heapright = binaryheap.deleteMin();
+
+           if (heapleft.pHuff == null)
+            treeleft = new HuffmanNode(heapleft.key());
+           else
+            treeleft = heapleft.pHuff;
+
+           if (heapright.pHuff == null)
+            treeright = new HuffmanNode(heapright.key());
+           else
+            treeright = heapright.pHuff;
+
+           treeparent = new HuffmanNode(-1, treeleft, treeright);
+           heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
+           binaryheap.insert(heapparent);
+        }
+        treeparent = binaryheap.getHuffmanNodeAtRoot();
+
+        //Empty the binary heap
+        binaryheap.flush();
+    }
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Delete Time:" + Math.round(stop));
-
+    System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
-    //Build a 4-ary heap using the frequency table
-    System.out.println("\nBuilding 4-ary Heap");
-    start = System.nanoTime();
+    //Build a four heap using the frequency table
+    System.out.println("\nAnalyzing Four Heap...");
     DaryHeap fourheap = new DaryHeap(count, 4, 0);
-
-    for (int j=0; j<10; j++) {
-    for (int i=0; i<1000000; i++) {
-      if (frequencyTable[i] > 0)
-        fourheap.insert(i, frequencyTable[i]);
-    }
-    if (j == 9)
-      System.out.println("Heap Size: " + fourheap.size());
-    else
-      fourheap.flush();
-    }
-
-    stop = System.nanoTime();
-    stop = (stop - start) / 1000000;
-    System.out.println("Total Build Time:" + Math.round(stop));
-
-    heapSize = fourheap.size();
     start = System.nanoTime();
 
-    for (int i=0; i<heapSize; i++)
-      fourheap.deleteMin();
+    for (int j=0; j<10; j++) {
+
+        //Populate the four heap
+        for (int i=0; i<1000000; i++) {
+          if (frequencyTable[i] > 0)
+            fourheap.insert(i, frequencyTable[i]);
+        }
+
+        //Build the huffman tree
+        HuffmanNode treeleft, treeright, treeparent;
+        Node heapleft, heapright, heapparent;
+
+        while (fourheap.size() > 1) {
+           heapleft = fourheap.deleteMin();
+           heapright = fourheap.deleteMin();
+
+           if (heapleft.pHuff == null)
+            treeleft = new HuffmanNode(heapleft.key());
+           else
+            treeleft = heapleft.pHuff;
+
+           if (heapright.pHuff == null)
+            treeright = new HuffmanNode(heapright.key());
+           else
+            treeright = heapright.pHuff;
+
+           treeparent = new HuffmanNode(-1, treeleft, treeright);
+           heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
+           fourheap.insert(heapparent);
+        }
+        treeparent = fourheap.getHuffmanNodeAtRoot();
+
+        //Empty the four heap
+        fourheap.flush();
+    }
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Delete Time:" + Math.round(stop));
+    System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
-    //Build a cache optimized 4-ary heap using the frequency table
-    System.out.println("\nBuilding Cache Optimized 4-ary Heap");
-    start = System.nanoTime();
+    //Build a cache optimized four heap using the frequency table
+    System.out.println("\nAnalyzing Cache Optimized Four Heap...");
     DaryHeap cacheheap = new DaryHeap(count, 4, 3);
-
-    for (int j=0; j<10; j++) {
-    for (int i=0; i<1000000; i++) {
-      if (frequencyTable[i] > 0)
-        cacheheap.insert(i, frequencyTable[i]);
-    }
-    if (j == 9)
-      System.out.println("Heap Size: " + cacheheap.size());
-    else
-      cacheheap.flush();
-    }
-
-    stop = System.nanoTime();
-    stop = (stop - start) / 1000000;
-    System.out.println("Total Build Time:" + Math.round(stop));
-
-    heapSize = cacheheap.size();
     start = System.nanoTime();
 
-    for (int i=0; i<heapSize-3; i++)
-      cacheheap.deleteMin();
+    for (int j=0; j<10; j++) {
+
+        //Populate the cache optimized four heap
+        for (int i=0; i<1000000; i++) {
+          if (frequencyTable[i] > 0)
+            cacheheap.insert(i, frequencyTable[i]);
+        }
+
+        //Build the huffman tree
+        HuffmanNode treeleft, treeright, treeparent;
+        Node heapleft, heapright, heapparent;
+
+        while (cacheheap.size() > 1) {
+           heapleft = cacheheap.deleteMin();
+           heapright = cacheheap.deleteMin();
+
+           if (heapleft.pHuff == null)
+            treeleft = new HuffmanNode(heapleft.key());
+           else
+            treeleft = heapleft.pHuff;
+
+           if (heapright.pHuff == null)
+            treeright = new HuffmanNode(heapright.key());
+           else
+            treeright = heapright.pHuff;
+
+           treeparent = new HuffmanNode(-1, treeleft, treeright);
+           heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
+           cacheheap.insert(heapparent);
+        }
+        treeparent = cacheheap.getHuffmanNodeAtRoot();
+
+        //Empty the cache optimized four heap
+        cacheheap.flush();
+    }
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Delete Time:" + Math.round(stop));
-
+    System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
-    //Build a pairing heap using the frequency table
-    System.out.println("\nBuilding Pairing Heap");
+    //Build a pairing  heap using the frequency table
+    System.out.println("\nAnalyzing Pairing Heap...");
+    PairingHeap pairingheap = new PairingHeap();
     start = System.nanoTime();
-    PairingHeap pHeap = new PairingHeap();
 
     for (int j=0; j<10; j++) {
-    for (int i=0; i<1000000; i++) {
-      if (frequencyTable[i] > 0)
-        pHeap.insert(i, frequencyTable[i]);
-    }
-    if (j == 9)
-      System.out.println("Heap Size: " + pHeap.size());
-    else
-      pHeap.flush();
+
+        //Populate the pairing heap
+        for (int i=0; i<1000000; i++) {
+          if (frequencyTable[i] > 0)
+            pairingheap.insert(i, frequencyTable[i]);
+        }
+
+        //Build the huffman tree
+        HuffmanNode treeleft, treeright, treeparent;
+        HeapNode heapleft, heapright, heapparent;
+
+        while (pairingheap.size() > 1) {
+           heapleft = pairingheap.deleteMin();
+           heapright = pairingheap.deleteMin();
+
+           if (heapleft.pHuff == null)
+            treeleft = new HuffmanNode(heapleft.value());
+           else
+            treeleft = heapleft.pHuff;
+
+           if (heapright.pHuff == null)
+            treeright = new HuffmanNode(heapright.value());
+           else
+            treeright = heapright.pHuff;
+
+           treeparent = new HuffmanNode(-1, treeleft, treeright);
+           heapparent = new HeapNode(-1, heapleft.frequency() + heapright.frequency(), treeparent);
+           pairingheap.insert(heapparent);
+        }
+        treeparent = pairingheap.getHuffmanTreeAtRoot();
+
+        //Empty the pairing heap
+        pairingheap.flush();
     }
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Build Time:" + Math.round(stop));
+    System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
 
-    heapSize = pHeap.size();
-    start = System.nanoTime();
-
-    for (int i=0; i<heapSize; i++)
-      pHeap.deleteMin();
-
-    stop = System.nanoTime();
-    stop = (stop - start) / 1000000;
-    System.out.println("Total Delete Time:" + Math.round(stop));
+    //------------------------------------------------------------------//
   }
 }

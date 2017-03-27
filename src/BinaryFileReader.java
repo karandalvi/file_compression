@@ -1,3 +1,8 @@
+/*
+Created by: Karan Dalvi
+BinaryFileReader is a helper class that reads an encoded binary file and returns
+the file data in StringBuilder format.
+*/
 import java.io.IOException;
 import java.io.File;
 import java.io.InputStream;

@@ -35,7 +35,7 @@ public class DaryHeap {
 
   //Returns the size of the heap
   public int size() {
-    return heap.size();
+    return (heap.size() - shift);
   }
 
   //Print the values in the heap
@@ -43,6 +43,14 @@ public class DaryHeap {
     for (int i = 0; i<heap.size(); i++) {
       System.out.print(" - " + heap.get(i).key() + "|" + heap.get(i).frequency());
     }
+  }
+
+  //Return huffman node pointer at root node
+  public HuffmanNode getHuffmanNodeAtRoot() {
+      if (isEmpty())
+        return null;
+      else
+        return heap.get(shift).pHuff;
   }
 
   //-------------------------------------------------------------------------
@@ -70,6 +78,11 @@ public class DaryHeap {
   //Insert a new key-value pair
   public void insert (int k, int f) {
     heap.add(new Node(k,f));
+    heapifyUp(heap.size() - 1);
+  }
+
+  public void insert (Node n) {
+    heap.add(n);
     heapifyUp(heap.size() - 1);
   }
 

@@ -1,4 +1,13 @@
-
+/*
+Created by: Karan Dalvi
+Huffman Tree provides add functionality functionality that takes as input a value and a huffCode
+which indicates the path where the node is to be added.
+Example: Insert(5,100) would indicate -> Start at root and visit right child, left child and
+insert 5 as left child.
+0 ==> left path
+1 ==> right path
+It also provides build function which reconstructs a text from a string of 0s and 1s
+*/
 public class HuffmanTree {
 
   HuffmanNode root;
@@ -16,6 +25,16 @@ public class HuffmanTree {
   public HuffmanNode getRoot() {
     return root;
   }
+
+  public void print() {
+    root.print();
+  }
+
+  public boolean isRootNull() {
+    return (root == null);
+  }
+
+  //-------------------------------------------------------------//
 
   public void updateHuffCodes() {
     updateHuffCode(root, "");
@@ -69,7 +88,6 @@ public class HuffmanTree {
         root.isLeaf = true;
       }
     }
-
     else if (huffcode.equals("1")) {
       if (root.right == null) {
         root.right = new HuffmanNode(value);
@@ -82,7 +100,6 @@ public class HuffmanTree {
         root.isLeaf = true;
       }
     }
-
     else {
       if (huffcode.substring(0,1).equals("0")) {
         if (root.left == null)
@@ -98,15 +115,35 @@ public class HuffmanTree {
 
   }
 
-  public void print() {
-    root.print();
-  }
+  //-------------------------------------------------------------//
 
-  public boolean isRootNull() {
-    return (root == null);
+  public StringBuilder build (String in_text) {
+    HuffmanNode current = root;
+    StringBuilder out_text = new StringBuilder("");
+    for (int i=-1, j=0; j<in_text.length(); i++, j++) {
+      if (current.value != -1) {
+        out_text.append(current.value + "\n");
+        current = root;
+        i--;
+        j--;
+      }
+      else {
+        if (in_text.charAt(j) == '0') {
+          current = current.left;
+        }
+        else {
+          current = current.right;
+        }
+      }
+    }
+    if (current.value != -1) {
+      out_text.append(current.value + "\n");
+    }
+    return out_text;
   }
 
   //-------------------------------------------------------------//
+
   public StringBuilder buildString(String in_text) {
     StringBuilder out_text = new StringBuilder("");
     build(root, in_text, out_text);
@@ -127,35 +164,6 @@ public class HuffmanTree {
         build(root.left, in_text.substring(1), out_text);
       }
     }
-  }
-
-  //-------------------------------------------------------------//
-
-  public StringBuilder build (String in_text) {
-    HuffmanNode current = root;
-    StringBuilder out_text = new StringBuilder("");
-    for (int i=-1, j=0; j<in_text.length(); i++, j++) {
-      if (current.value != -1) {
-        out_text.append(current.value + "\n");
-        // out_text.append(System.getProperty("line.separator"));
-        current = root;
-        i--;
-        j--;
-      }
-      else {
-        if (in_text.charAt(j) == '0') {
-          current = current.left;
-        }
-        else {
-          current = current.right;
-        }
-      }
-    }
-    if (current.value != -1) {
-      out_text.append(current.value + "\n");
-      // out_text.append(System.getProperty("line.separator"));
-    }
-    return out_text;
   }
 
 }

@@ -1,3 +1,8 @@
+/*
+Created by: Karan Dalvi
+CodeTableWriter is a helper class that takes as input the huff code table and
+creates a file consisting of tokens with their huff code values.
+*/
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

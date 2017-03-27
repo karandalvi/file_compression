@@ -1,7 +1,9 @@
-import java.io.IOException;
+/*
+Created by: Karan Dalvi
+The Decoder program uses the files encoded.bin and code_table.txt to reconstruct
+the huffman tree and the original file.
+*/
 import java.io.File;
-import java.io.InputStream;
-import java.io.FileInputStream;
 import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.FileWriter;

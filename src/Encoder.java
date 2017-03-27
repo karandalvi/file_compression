@@ -1,3 +1,10 @@
+/*
+Created by: Karan Dalvi
+The Encoder program takes one value (filename) as input in command line arguments.
+It will then build a frequency table for this file, build a pairing heap and then
+using huffman coding to create a compressed file in binary form. It also creates
+the huffman code table which should be used for reconstructing the original file.
+*/
 import java.util.Scanner;
 import java.io.FileReader;
 

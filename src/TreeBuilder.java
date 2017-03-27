@@ -1,3 +1,7 @@
+/*
+Created by: Karan Dalvi
+TreeBuilder assists in building a huffman tree from given pairing heap structure.
+*/
 public class TreeBuilder {
 
   PairingHeap pHeap;

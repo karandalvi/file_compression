@@ -1,3 +1,8 @@
+/*
+Created by: Karan Dalvi
+BinaryFileWriter is a helper class that takes as input string data and writes it
+to a file in binary format.
+*/
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
