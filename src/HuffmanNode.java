@@ -1,3 +1,11 @@
+/*
+Created by: Karan Dalvi
+HuffmanNode class provides node structure for objects in the HuffmanTree.
+It consist of key value. It also consists of pointers to the left and right child.
+Additionally, it consist of a huffCode which is a String value representing the
+address of the node from the root of the Huffman Tree.
+*/
+
 public class HuffmanNode {
 
   int value;
@@ -5,7 +13,7 @@ public class HuffmanNode {
   String huffCode;
   boolean isLeaf;
 
-
+  //Constructors
   public HuffmanNode(int value) {
     this.value = value;
     left = null;
@@ -30,15 +38,7 @@ public class HuffmanNode {
     isLeaf = false;
   }
 
-  // public void updateHuffCodes(String s) {
-  //   if (left != null)
-  //     left.updateHuffCodes(s + "0");
-  //   if (value != -1)
-  //     huffCode = s;
-  //   if (right != null)
-  //     right.updateHuffCodes(s + "1");
-  // }
-
+  //Print the huffman tree rooted at this node
   public void print() {
     if (left != null)
       left.print();
@@ -46,14 +46,5 @@ public class HuffmanNode {
     if (right != null)
       right.print();
   }
-
-  // public void copyToTable(String[] table) {
-  //   if (left != null)
-  //     left.copyToTable(table);
-  //   if (value >= 0)
-  //     table[value] = huffCode;
-  //   if (right != null)
-  //     right.copyToTable(table);
-  // }
 
 }
