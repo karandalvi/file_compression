@@ -142,7 +142,7 @@ public class PerformanceMonitor {
 
     //Build a cache optimized four heap using the frequency table
     System.out.println("\nAnalyzing Cache Optimized Four Heap...");
-    DaryHeap cacheheap = new DaryHeap(count, 4, 3);
+    DaryHeap cacheheap = new DaryHeap(count, 2, 1);
     start = System.nanoTime();
 
     for (int j=0; j<10; j++) {
