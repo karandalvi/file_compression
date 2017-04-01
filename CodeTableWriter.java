@@ -39,8 +39,7 @@ public class CodeTableWriter {
     printInOrder(t.left);
     if (t.value != -1) {
       try {
-        output.write(t.value + " " + t.huffCode);
-        output.newLine();
+        output.write(t.value + " " + t.huffCode + "\n");
       }
       catch (IOException e) {
         e.printStackTrace();

@@ -4,12 +4,12 @@ TreeBuilder assists in building a huffman tree from given pairing heap structure
 */
 public class TreeBuilder {
 
-  PairingHeap pHeap;
+  DaryHeap pHeap;
   HuffmanNode hRoot;
   HuffmanTree hTree;
   String[] table;
 
-  public TreeBuilder(PairingHeap heap) {
+  public TreeBuilder(DaryHeap heap) {
     pHeap = heap;
     table = new String[1000000];
     buildHuffmanTree();
@@ -19,7 +19,7 @@ public class TreeBuilder {
   public void buildHuffmanTree() {
 
     HuffmanNode treeleft, treeright, treeparent;
-    HeapNode heapleft, heapright, heapparent;
+    Node heapleft, heapright, heapparent;
 
     while (pHeap.size() > 1) {
        heapleft = pHeap.deleteMin();
@@ -36,7 +36,7 @@ public class TreeBuilder {
         treeright = heapright.pHuff;
 
        treeparent = new HuffmanNode(-1, treeleft, treeright);
-       heapparent = new HeapNode(-1, heapleft.frequency() + heapright.frequency(), treeparent);
+       heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
        pHeap.insert(heapparent);
     }
 

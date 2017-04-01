@@ -7,6 +7,7 @@ the huffman code table which should be used for reconstructing the original file
 */
 import java.util.Scanner;
 import java.io.FileReader;
+import java.util.Arrays;
 import java.io.FileNotFoundException;
 import java.lang.ArrayIndexOutOfBoundsException;
 
@@ -19,8 +20,7 @@ public class encoder {
     int count = 0;
     int heapSize;
     int[] frequencyTable = new int[1000000];
-    for (int i=0; i<1000000; i++)
-      frequencyTable[i] = 0;
+    Arrays.fill(frequencyTable, 0);
 
     //------------------------------------------------------------------//
 
@@ -41,7 +41,7 @@ public class encoder {
 
     //Build a pairing heap using the frequency table
     start = System.nanoTime();
-    PairingHeap pHeap = new PairingHeap();
+    DaryHeap pHeap = new DaryHeap(count, 4, 3);
 
     for (int i=0; i<1000000; i++) {
       if (frequencyTable[i] > 0)

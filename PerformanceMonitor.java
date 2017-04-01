@@ -68,12 +68,12 @@ public class PerformanceMonitor {
            heapright = binaryheap.deleteMin();
 
            if (heapleft.pHuff == null)
-            treeleft = new HuffmanNode(heapleft.key());
+            treeleft = new HuffmanNode(heapleft.value());
            else
             treeleft = heapleft.pHuff;
 
            if (heapright.pHuff == null)
-            treeright = new HuffmanNode(heapright.key());
+            treeright = new HuffmanNode(heapright.value());
            else
             treeright = heapright.pHuff;
 
@@ -81,7 +81,7 @@ public class PerformanceMonitor {
            heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
            binaryheap.insert(heapparent);
         }
-        treeparent = binaryheap.getHuffmanNodeAtRoot();
+        treeparent = binaryheap.getHuffmanTreeAtRoot();
 
         //Empty the binary heap
         binaryheap.flush();
@@ -115,12 +115,12 @@ public class PerformanceMonitor {
            heapright = fourheap.deleteMin();
 
            if (heapleft.pHuff == null)
-            treeleft = new HuffmanNode(heapleft.key());
+            treeleft = new HuffmanNode(heapleft.value());
            else
             treeleft = heapleft.pHuff;
 
            if (heapright.pHuff == null)
-            treeright = new HuffmanNode(heapright.key());
+            treeright = new HuffmanNode(heapright.value());
            else
             treeright = heapright.pHuff;
 
@@ -128,7 +128,7 @@ public class PerformanceMonitor {
            heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
            fourheap.insert(heapparent);
         }
-        treeparent = fourheap.getHuffmanNodeAtRoot();
+        treeparent = fourheap.getHuffmanTreeAtRoot();
 
         //Empty the four heap
         fourheap.flush();
@@ -162,12 +162,12 @@ public class PerformanceMonitor {
            heapright = cacheheap.deleteMin();
 
            if (heapleft.pHuff == null)
-            treeleft = new HuffmanNode(heapleft.key());
+            treeleft = new HuffmanNode(heapleft.value());
            else
             treeleft = heapleft.pHuff;
 
            if (heapright.pHuff == null)
-            treeright = new HuffmanNode(heapright.key());
+            treeright = new HuffmanNode(heapright.value());
            else
             treeright = heapright.pHuff;
 
@@ -175,7 +175,7 @@ public class PerformanceMonitor {
            heapparent = new Node(-1, heapleft.frequency() + heapright.frequency(), treeparent);
            cacheheap.insert(heapparent);
         }
-        treeparent = cacheheap.getHuffmanNodeAtRoot();
+        treeparent = cacheheap.getHuffmanTreeAtRoot();
 
         //Empty the cache optimized four heap
         cacheheap.flush();

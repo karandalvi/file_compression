@@ -1,24 +1,24 @@
 /*
 Created by: Karan Dalvi
 Node class provides node structure for objects in the DaryHeap.
-It consist of key value and its frequency.
+It consist of value value and its frequency.
 */
 
 public class Node {
 
-  int key;
+  int value;
   int frequency;
   HuffmanNode pHuff;
 
   //Constructors
   public Node (int k, int v) {
-    key = k;
+    value = k;
     frequency = v;
     pHuff = null;
   }
 
   public Node (int k, int v, HuffmanNode p) {
-    key = k;
+    value = k;
     frequency = v;
     pHuff = p;
   }
@@ -33,8 +33,8 @@ public class Node {
     return frequency;
   }
 
-  public int key() {
-    return key;
+  public int value() {
+    return value;
   }
 
 }

@@ -29,7 +29,7 @@ public class DaryHeap {
 
   //Check if the heap is empty
   public boolean isEmpty() {
-    return heap.isEmpty();
+    return (heap.size() <= shift);
   }
 
   //Returns the size of the heap
@@ -40,12 +40,12 @@ public class DaryHeap {
   //Print the values in the heap
   public void printHeap () {
     for (int i = 0; i<heap.size(); i++) {
-      System.out.print(" - " + heap.get(i).key() + "|" + heap.get(i).frequency());
+      System.out.print(" - " + heap.get(i).value() + "|" + heap.get(i).frequency());
     }
   }
 
   //Return huffman node pointer at root node
-  public HuffmanNode getHuffmanNodeAtRoot() {
+  public HuffmanNode getHuffmanTreeAtRoot() {
       if (isEmpty())
         return null;
       else
@@ -74,7 +74,7 @@ public class DaryHeap {
     }
   }
 
-  //Insert a new key-value pair
+  //Insert a new value-value pair
   public void insert (int k, int f) {
     heap.add(new Node(k,f));
     heapifyUp(heap.size() - 1);
