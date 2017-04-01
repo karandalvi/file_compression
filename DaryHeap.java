@@ -8,21 +8,20 @@ The degree indicates the number of children each parent node will have in the he
 at which place will the root be located in the Vector.
 */
 
-import java.util.Vector;
-
+import java.util.ArrayList; //Vector replaced by ArrayList as synchronization is not required and to reduce execution time
 public class DaryHeap {
 
   int size;
   int degree;
   int shift;
-  Vector<Node> heap;
+  ArrayList<Node> heap;//Vector<Node> heap;
 
   //Constructor prompting for size (initial size of the array), degree (number of children) and shift (index of root)
   public DaryHeap (int size, int degree, int shift) {
     this.size = size;
     this.degree = degree;
     this.shift = shift;
-    heap = new Vector<Node>(size+shift);
+    heap = new ArrayList<Node>(size+shift);//heap = new Vector<Node>(size+shift);
     for (int i = 0; i < shift; i++) {
       heap.add(new Node(-1, -1));
     }
@@ -69,7 +68,7 @@ public class DaryHeap {
 
   //Empty the heap
   public void flush() {
-    heap.removeAllElements();
+    heap.clear();//heap.removeAllElements();
     for (int i = 0; i < shift; i++) {
       heap.add(new Node(-1, -1));
     }
@@ -113,39 +112,38 @@ public class DaryHeap {
     if (bestChild >= heap.size())
       return bestChild;
     else {
-        int child = 0;
         int iterator = 2;
-        while ((iterator <= degree) && (kthChild(n,iterator) < heap.size())) {
-          child = kthChild(n, iterator);
+        int child = bestChild + 1;
+        while ((iterator <= degree) && (child < heap.size())) {
           if (heap.get(child).frequency() < heap.get(bestChild).frequency()) {
             bestChild = child;
           }
+          child++;
           iterator++;
         }
       }
-
     return bestChild;
   }
 
   //--------------------------------------------------------------------------
 
   //Functions that maintain the min heap property
-  public void minHeapify (int p) {
-    int c = minChild(p);
-    Node parent = heap.get(p);
-    if (heap.get(p).frequency() > heap.get(c).frequency()) {
-      Node temp = heap.get(p);
-      heap.set(p, heap.get(c));
-      heap.set(c, temp);
-      minHeapify(c);
-    }
-  }
-
-  public void buildHeap() {
-    for (int i = parent(size); i>=shift; i--) {
-      minHeapify(i);
-    }
-  }
+  // public void minHeapify (int p) {
+  //   int c = minChild(p);
+  //   Node parent = heap.get(p);
+  //   if (heap.get(p).frequency() > heap.get(c).frequency()) {
+  //     Node temp = heap.get(p);
+  //     heap.set(p, heap.get(c));
+  //     heap.set(c, temp);
+  //     minHeapify(c);
+  //   }
+  // }
+  //
+  // public void buildHeap() {
+  //   for (int i = parent(size); i>=shift; i--) {
+  //     minHeapify(i);
+  //   }
+  // }
 
   //Function to bubble up values that so as to maintain heap property
   public void heapifyUp (int child) {

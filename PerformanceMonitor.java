@@ -10,6 +10,7 @@ of heap & tree is run in a loop ten times so as to get reliable analysis times.
 import java.util.Scanner;
 import java.io.FileReader;
 import java.lang.Exception;
+import java.util.Arrays;
 import java.io.FileNotFoundException;
 import java.lang.ArrayIndexOutOfBoundsException;
 public class PerformanceMonitor {
@@ -23,8 +24,7 @@ public class PerformanceMonitor {
     int count = 0;
     int heapSize;
     int[] frequencyTable = new int[1000000];
-    for (int i=0; i<1000000; i++)
-      frequencyTable[i] = 0;
+    Arrays.fill(frequencyTable, 0);
 
     //------------------------------------------------------------------//
 
@@ -142,7 +142,7 @@ public class PerformanceMonitor {
 
     //Build a cache optimized four heap using the frequency table
     System.out.println("\nAnalyzing Cache Optimized Four Heap...");
-    DaryHeap cacheheap = new DaryHeap(count, 2, 1);
+    DaryHeap cacheheap = new DaryHeap(count, 4, 3);
     start = System.nanoTime();
 
     for (int j=0; j<10; j++) {
