@@ -1,3 +1,8 @@
+/*
+Created by: Karan Dalvi
+BinaryFileWriter is a helper class that takes as input string data and writes it
+to a file in binary format.
+*/
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
@@ -6,7 +11,7 @@ import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
 
-public class Encoder {
+public class BinaryFileWriter {
 
   String[] huffCodes;
   String inputfilename;
@@ -18,9 +23,9 @@ public class Encoder {
   OutputStream opStream;
   StringBuilder binaryString;
 
-  public Encoder (String inputfilename, String outputfilename, String[] huffCodes) {
+  public BinaryFileWriter (String inputfilename, String outputfilename, String[] huffCodes) {
     this.inputfilename = inputfilename;
-    this.outputfilename = "../output/" + outputfilename;
+    this.outputfilename = outputfilename;
     this.huffCodes = huffCodes;
     binaryString = new StringBuilder("");
   }

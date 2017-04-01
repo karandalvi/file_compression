@@ -1,17 +1,22 @@
+/*
+Created by: Karan Dalvi
+CodeTableWriter is a helper class that takes as input the huff code table and
+creates a file consisting of tokens with their huff code values.
+*/
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class CodeTableCreator {
+public class CodeTableWriter {
 
   BufferedWriter output;
   File file;
   String filename;
-  HeapNode root;
+  HuffmanNode root;
 
-  public CodeTableCreator(String filename, HeapNode root) {
-    this.filename = "../output/" + filename;
+  public CodeTableWriter(String filename, HuffmanNode root) {
+    this.filename = filename;
     this.root = root;
   }
 
@@ -28,10 +33,10 @@ public class CodeTableCreator {
     }
   }
 
-  public void printInOrder(HeapNode t) {
+  public void printInOrder(HuffmanNode t) {
     if (t == null)
       return;
-    printInOrder(t.treeLeft);
+    printInOrder(t.left);
     if (t.value != -1) {
       try {
         output.write(t.value + " " + t.huffCode);
@@ -41,7 +46,7 @@ public class CodeTableCreator {
         e.printStackTrace();
       }
     }
-    printInOrder(t.treeRight);
+    printInOrder(t.right);
   }
 
 }

@@ -1,3 +1,10 @@
+/*
+Created by: Karan Dalvi
+HeapNode class provides node structure for objects in the Pairing Heap.
+It consist of key value and its frequency. It also consists of a pointer to a HuffmanNode
+to assist during the construction of the Huffman tree.
+*/
+
 public class HeapNode {
 
   int value;
@@ -5,21 +12,28 @@ public class HeapNode {
   HeapNode child;
   HeapNode left;
   HeapNode right;
-  HeapNode treeLeft;
-  HeapNode treeRight;
-  String huffCode;
+  HuffmanNode pHuff;
 
+  //Constructors
   public HeapNode(int value, int frequency) {
     this.value = value;
     this.frequency = frequency;
     child = null;
     left = null;
     right = null;
-    treeLeft = null;
-    treeRight = null;
-    huffCode = "";
+    pHuff = null;
   }
 
+  public HeapNode(int value, int frequency, HuffmanNode pHuff) {
+    this.value = value;
+    this.frequency = frequency;
+    child = null;
+    left = null;
+    right = null;
+    this.pHuff = pHuff;
+  }
+
+  //Getter Functions
   public int value() {
     return value;
   }
@@ -40,6 +54,7 @@ public class HeapNode {
     return right;
   }
 
+  //Setter Functions
   public void setChild(HeapNode child) {
     this.child = child;
   }
