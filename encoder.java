@@ -24,7 +24,9 @@ public class encoder {
 
     //------------------------------------------------------------------//
 
+    System.out.println("------------------------------------------------------");
     //Read the input file and update frequencies
+    float total = 0;
     float start = System.nanoTime();
     Scanner scan = new Scanner(new FileReader(filename));
     while (scan.hasNext())
@@ -35,27 +37,29 @@ public class encoder {
     scan.close();
     float stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Frequency Table Build Time: " + Math.round(stop) + " milliseconds");
+    total += Math.round(stop);
+    System.out.println("  Frequency Table Build Time : " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
-    //Build a pairing heap using the frequency table
+    //Build a cache optimized heap using the frequency table
     start = System.nanoTime();
-    DaryHeap pHeap = new DaryHeap(count, 4, 3);
+    DaryHeap myHeap = new DaryHeap(count, 4, 3);
 
     for (int i=0; i<1000000; i++) {
       if (frequencyTable[i] > 0)
-        pHeap.insert(i, frequencyTable[i]);
+        myHeap.insert(i, frequencyTable[i]);
     }
     frequencyTable = null;
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Pairing Heap Build Time: " + Math.round(stop) + " milliseconds");
+    total += Math.round(stop);
+    System.out.println("  Heap Build Time            : " + Math.round(stop) + " milliseconds");
 
     //------------------------------------------------------------------//
 
     start = System.nanoTime();
-    TreeBuilder myTreeBuilder = new TreeBuilder(pHeap);
+    TreeBuilder myTreeBuilder = new TreeBuilder(myHeap);
     HuffmanTree huffTree = myTreeBuilder.getHuffmanTree();
     String[] huffCodes = myTreeBuilder.getHuffCodeTable();
 
@@ -67,7 +71,10 @@ public class encoder {
 
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
-    System.out.println("Total Encode Time: " + Math.round(stop) + " milliseconds");
+    total += Math.round(stop);
+    System.out.println("  Encoding Time              : " + Math.round(stop) + " milliseconds");
+    System.out.println("  Total Time                 : " + Math.round(total) + " milliseconds");
+    System.out.println("------------------------------------------------------");
   }
 
   catch(FileNotFoundException e) {
