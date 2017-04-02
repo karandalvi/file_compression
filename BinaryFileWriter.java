@@ -4,12 +4,9 @@ BinaryFileWriter is a helper class that takes as input string data and writes it
 to a file in binary format.
 */
 import java.io.IOException;
-import java.util.Scanner;
 import java.io.FileReader;
-import java.io.File;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
-import java.nio.ByteBuffer;
 import java.io.BufferedReader;
 
 public class BinaryFileWriter {
@@ -17,11 +14,6 @@ public class BinaryFileWriter {
   String[] huffCodes;
   String inputfilename;
   String outputfilename;
-
-  Scanner scan;
-  FileReader filereader;
-  File file;
-  OutputStream opStream;
   StringBuilder binaryString;
 
   public BinaryFileWriter (String inputfilename, String outputfilename, String[] huffCodes) {
@@ -34,27 +26,15 @@ public class BinaryFileWriter {
   public void encode() {
 
     try {
-      filereader = new FileReader(inputfilename);
-      scan = new Scanner(new BufferedReader(filereader));
-
       BufferedReader bf = new BufferedReader(new FileReader(inputfilename));
 
-      opStream = new FileOutputStream(outputfilename);
-      // while (scan.hasNext())
-      // {
-      //   // binaryString.append(String.valueOf(huffCodes[scan.nextInt()]));
-      //   binaryString.append(huffCodes[scan.nextInt()]);
-      // }
-
       String str;
-      while((str=bf.readLine())!=null)
+      while(((str=bf.readLine())!=null) && (!(str.replace(" ","").equals(""))))
       {
         binaryString.append(huffCodes[Integer.parseInt(str)]);
       }
 
-
-      scan.close();
-
+      OutputStream opStream = new FileOutputStream(outputfilename);
       opStream.write(formBinary(binaryString.toString()));
       opStream.flush();
       opStream.close();

@@ -11,7 +11,6 @@ import java.io.IOException;
 public class CodeTableWriter {
 
   BufferedWriter output;
-  File file;
   String filename;
   HuffmanNode root;
 
@@ -23,8 +22,7 @@ public class CodeTableWriter {
   public void createFile() {
 
     try {
-      file = new File(filename);
-      output = new BufferedWriter(new FileWriter(file));
+      output = new BufferedWriter(new FileWriter(new File(filename)));
       printInOrder(root);
       output.close();
     }

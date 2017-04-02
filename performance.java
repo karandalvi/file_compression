@@ -1,6 +1,6 @@
 /*
 Created by: Karan Dalvi
-PerformanceMonitor was used to analyze the performance of different heap structures
+Performance class is used to analyze the performance of different heap structures
 and select the structure that gives optimum performance. This code takes a filename
 as input which will be analyzed. It builds a frequency table and uses this array to
 build different heaps and the Huffman Tree using those heap structures. The construction
@@ -13,7 +13,7 @@ import java.lang.Exception;
 import java.util.Arrays;
 import java.io.FileNotFoundException;
 import java.lang.ArrayIndexOutOfBoundsException;
-public class PerformanceMonitor {
+public class performance {
 
   public static void main (String[] args) throws Exception {
 
@@ -30,9 +30,9 @@ public class PerformanceMonitor {
 
     //Read the input file and update frequencies
     Scanner scan = new Scanner(new FileReader(args[0]));
-    System.out.println("Performance Monitor (All times in milliseconds)");
-    System.out.println("Analysis: Time taken to build heap and subsequently the Huffman Tree ten times");
-    System.out.println("\nBuilding Frequency Table...");
+    System.out.println("Performance Analysis");
+    System.out.println("------------------------------------------------------");
+    System.out.println("Building Frequency Table...");
     float start = System.nanoTime();
     while (scan.hasNext())
     {
@@ -231,7 +231,7 @@ public class PerformanceMonitor {
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
     System.out.println("Total Build Time: " + Math.round(stop) + " milliseconds");
-
+    System.out.println("------------------------------------------------------");
     //------------------------------------------------------------------//
   }
   catch(FileNotFoundException e) {

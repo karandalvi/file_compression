@@ -11,18 +11,15 @@ import java.io.FileInputStream;
 public class BinaryFileReader {
 
   String inputfilename;
-  File input;
-  InputStream inputStream;
 
   public BinaryFileReader(String filename) {
     this.inputfilename = filename;
-    input = new File(inputfilename);
   }
 
   public StringBuilder read() {
     StringBuilder binaryString = new StringBuilder("");
     try {
-      inputStream = new FileInputStream(input);
+      InputStream inputStream = new FileInputStream(new File(inputfilename));
       byte[] b;
 
       while (inputStream.available() > 1) {
@@ -31,6 +28,7 @@ public class BinaryFileReader {
         inputStream.read(b);
         binaryString.append(toBinaryString(b));
       }
+      inputStream.close();
     }
 
     catch(IOException e) {

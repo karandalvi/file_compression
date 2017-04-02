@@ -127,24 +127,6 @@ public class DaryHeap {
 
   //--------------------------------------------------------------------------
 
-  //Functions that maintain the min heap property
-  // public void minHeapify (int p) {
-  //   int c = minChild(p);
-  //   Node parent = heap.get(p);
-  //   if (heap.get(p).frequency() > heap.get(c).frequency()) {
-  //     Node temp = heap.get(p);
-  //     heap.set(p, heap.get(c));
-  //     heap.set(c, temp);
-  //     minHeapify(c);
-  //   }
-  // }
-  //
-  // public void buildHeap() {
-  //   for (int i = parent(size); i>=shift; i--) {
-  //     minHeapify(i);
-  //   }
-  // }
-
   //Function to bubble up values that so as to maintain heap property
   public void heapifyUp (int child) {
     Node temp = heap.get(child);
