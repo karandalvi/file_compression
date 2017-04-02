@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
+import java.io.BufferedReader;
 
 public class BinaryFileWriter {
 
@@ -34,13 +35,24 @@ public class BinaryFileWriter {
 
     try {
       filereader = new FileReader(inputfilename);
-      scan = new Scanner(filereader);
+      scan = new Scanner(new BufferedReader(filereader));
+
+      BufferedReader bf = new BufferedReader(new FileReader(inputfilename));
 
       opStream = new FileOutputStream(outputfilename);
-      while (scan.hasNext())
+      // while (scan.hasNext())
+      // {
+      //   // binaryString.append(String.valueOf(huffCodes[scan.nextInt()]));
+      //   binaryString.append(huffCodes[scan.nextInt()]);
+      // }
+
+      String str;
+      while((str=bf.readLine())!=null)
       {
-        binaryString.append(String.valueOf(huffCodes[scan.nextInt()]));
+        binaryString.append(huffCodes[Integer.parseInt(str)]);
       }
+
+
       scan.close();
 
       opStream.write(formBinary(binaryString.toString()));

@@ -62,17 +62,26 @@ public class encoder {
     TreeBuilder myTreeBuilder = new TreeBuilder(myHeap);
     HuffmanTree huffTree = myTreeBuilder.getHuffmanTree();
     String[] huffCodes = myTreeBuilder.getHuffCodeTable();
-
-    CodeTableWriter myCodeTableWriter = new CodeTableWriter("code_table.txt", huffTree.getRoot());
-    myCodeTableWriter.createFile();
-
-    BinaryFileWriter myBinaryFileWriter = new BinaryFileWriter(filename,"encoded.bin",huffCodes);
-    myBinaryFileWriter.encode();
-
     stop = System.nanoTime();
     stop = (stop - start) / 1000000;
     total += Math.round(stop);
-    System.out.println("  Encoding Time              : " + Math.round(stop) + " milliseconds");
+    System.out.println("  Huffman Tree Build Time    : " + Math.round(stop) + " milliseconds");
+
+    start = System.nanoTime();
+    CodeTableWriter myCodeTableWriter = new CodeTableWriter("code_table.txt", huffTree.getRoot());
+    myCodeTableWriter.createFile();
+    stop = System.nanoTime();
+    stop = (stop - start) / 1000000;
+    total += Math.round(stop);
+    System.out.println("  Write Code Table File Time : " + Math.round(stop) + " milliseconds");
+
+    start = System.nanoTime();
+    BinaryFileWriter myBinaryFileWriter = new BinaryFileWriter(filename,"encoded.bin",huffCodes);
+    myBinaryFileWriter.encode();
+    stop = System.nanoTime();
+    stop = (stop - start) / 1000000;
+    total += Math.round(stop);
+    System.out.println("  Write Encoded Bin File     : " + Math.round(stop) + " milliseconds");
     System.out.println("  Total Time                 : " + Math.round(total) + " milliseconds");
     System.out.println("------------------------------------------------------");
   }
