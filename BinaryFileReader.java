@@ -25,8 +25,9 @@ public class BinaryFileReader {
       inputStream = new FileInputStream(input);
       byte[] b;
 
-      while (inputStream.available() > 0) {
-        b = new byte[1];
+      while (inputStream.available() > 1) {
+        int n = inputStream.available();
+        b = new byte[n];
         inputStream.read(b);
         binaryString.append(toBinaryString(b));
       }
