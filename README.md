@@ -7,6 +7,7 @@ The project uses Huffman Coding to compress a file for data transmission. It cre
 1. Clone the project and compile all the java files.
 2. Create a text file containing one integer value (between 0 and 999999) on each line in the same directory to provide as input for the program.
 3. Run the following programs
-    i. java performance input_filename.txt
-   ii. java encoder input_filename.txt
-  iii. java decoder encoded.bin code_table.txt
+
+java performance input_filename.txt
+java encoder input_filename.txt
+java decoder encoded.bin code_table.txt
