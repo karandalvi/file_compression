@@ -80,24 +80,20 @@ public class HuffmanTree {
       if (root.left == null) {
         root.left = new HuffmanNode(value);
         root.left.huffCode = path;
-        root.isLeaf = true;
       }
       else {
         root.left.value = value;
         root.left.huffCode = path;
-        root.isLeaf = true;
       }
     }
     else if (huffcode.equals("1")) {
       if (root.right == null) {
         root.right = new HuffmanNode(value);
         root.right.huffCode = path;
-        root.isLeaf = true;
       }
       else {
         root.right.value = value;
         root.right.huffCode = path;
-        root.isLeaf = true;
       }
     }
     else {

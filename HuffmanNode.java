@@ -11,7 +11,6 @@ public class HuffmanNode {
   int value;
   HuffmanNode left, right;
   String huffCode;
-  boolean isLeaf;
 
   //Constructors
   public HuffmanNode(int value) {
@@ -19,7 +18,6 @@ public class HuffmanNode {
     left = null;
     right = null;
     huffCode = "";
-    isLeaf = false;
   }
 
   public HuffmanNode(int value, String huff) {
@@ -27,7 +25,6 @@ public class HuffmanNode {
     left = null;
     right = null;
     huffCode = huff;
-    isLeaf = false;
   }
 
   public HuffmanNode(int value, HuffmanNode left, HuffmanNode right) {
@@ -35,7 +32,6 @@ public class HuffmanNode {
     this.left = left;
     this.right = right;
     huffCode = "";
-    isLeaf = false;
   }
 
   //Print the huffman tree rooted at this node
