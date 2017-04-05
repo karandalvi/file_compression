@@ -139,27 +139,4 @@ public class HuffmanTree {
   }
 
   //-------------------------------------------------------------//
-
-  // public StringBuilder buildString(String in_text) {
-  //   StringBuilder out_text = new StringBuilder("");
-  //   build(root, in_text, out_text);
-  //   return out_text;
-  // }
-  //
-  // public void build(HuffmanNode root, String in_text, StringBuilder out_text) {
-  //   if (root.value != -1) {
-  //     out_text.append(root.value + "\n");
-  //     if (in_text.length()>0)
-  //       build(root, in_text, out_text);
-  //   }
-  //   else {
-  //     if (in_text.substring(0,1).equals("0")) {
-  //       build(root.left, in_text.substring(1), out_text);
-  //     }
-  //     else { // (in_text.substring(0,1).equals("1")) {
-  //       build(root.left, in_text.substring(1), out_text);
-  //     }
-  //   }
-  // }
-
 }
