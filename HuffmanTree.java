@@ -118,7 +118,15 @@ public class HuffmanTree {
     StringBuilder out_text = new StringBuilder("");
     for (int i=-1, j=0; j<in_text.length(); i++, j++) {
       if (current.value != -1) {
-        out_text.append(current.value + "\n");
+		if (current.value == 10)
+			out_text.append("\n");
+		else if (current.value == 32)
+			out_text.append(" ");
+		else {
+			char cc = (char) current.value;
+			out_text.append(cc);
+		}
+        
         current = root;
         i--;
         j--;

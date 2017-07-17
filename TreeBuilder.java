@@ -11,7 +11,7 @@ public class TreeBuilder {
 
   public TreeBuilder(DaryHeap heap) {
     pHeap = heap;
-    table = new String[1000000];
+    table = new String[128];
     buildHuffmanTree();
     buildCodeTable();
   }
@@ -46,7 +46,7 @@ public class TreeBuilder {
   }
 
   public void buildCodeTable() {
-    for (int i=0; i<1000000; i++)
+    for (int i=0; i<128; i++)
       table[i] = "";
     hTree.copyHuffCodes(table);
   }

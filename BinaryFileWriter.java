@@ -31,7 +31,10 @@ public class BinaryFileWriter {
       String str;
       while(((str=bf.readLine())!=null) && (!(str.replace(" ","").equals(""))))
       {
-        binaryString.append(huffCodes[Integer.parseInt(str)]);
+		for (int i=0; i<str.length();i++) {
+			binaryString.append(huffCodes[str.charAt(i)]);
+		}
+		binaryString.append(huffCodes[10]);
       }
 
       OutputStream opStream = new FileOutputStream(outputfilename);
